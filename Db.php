@@ -8,6 +8,7 @@
 		public static function conectar(){
 
 				//Abrimos conexión a Mongo
+				//Esto es una prueba de conexion
 				$conexion = new MongoDB\Client;
 				//Seleccionamos base de datos
 				self::$conexion = $conexion->daw;
