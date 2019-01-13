@@ -53,8 +53,6 @@
 			$coleccion = $bd->Reservas;
 			//Buscamos todas las reservas
 			$coleccion->deleteOne(['_id' => new \MongoDB\BSON\ObjectId($idReserva)]);
-
-
 			$dbh=null;
 		}
 
