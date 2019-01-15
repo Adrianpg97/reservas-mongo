@@ -30,19 +30,18 @@
 		
 		
 	} else if (isset($_POST['actualizar'])) {
-		/*
-		$unaPelicula = new Pelicula($_POST['id'],$_POST['titulo'],$_POST['genero'],$_POST['director'],$_POST['year'],$_POST['sinopsis'], subir());
-
-		BDPelicula::modificar($unaPelicula);
-		header("Location: index.php");
-		*/
+		//Crea una nueva reserva con los datos del formilario de actualizar
+		$unaReserva = new Reserva($_POST['id'],$_POST['nombre'],$_POST['apellidos'],$_POST['fecha'],$_POST['comensales'],$_POST['hora']);
+		//Llama al método modificar 
+		CrudReserva::modificar($unaReserva);
+		//Redirige directamente a reservas.php
+		header("Location: reservas.php");	
 	}
 
 
 
 	//Método para subir un fichero al servidor
 	function subir() {
-
 		if(!isset($_FILES["cartel"])) {
 			echo "No estoy recibiendo el archivo";
 		}elseif($_FILES["cartel"]["size"] == 0) {
@@ -75,11 +74,6 @@
 			}
 
 		}
-
-
-
-
 	}
-
 
 ?>

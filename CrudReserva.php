@@ -91,4 +91,33 @@
 
 		}
 
+		public static function modificar($unaReserva) {
+	        $bd = Db::conectar();
+	        //Dentro de la base de datos seleccionamos una colección (tabla)
+	        $coleccion = $bd->Reservas;
+	        $date = new DateTime($unaReserva->getFecha());
+	        $fecha = $date->format('d/m/Y');
+	        $coleccion->updateOne(
+	            array('_id' => new \MongoDB\BSON\ObjectId($unaReserva->getId())),
+	            array('$set' => array('Comensales' => $unaReserva->getComensales(),'Fecha' => $fecha,'Hora' => $unaReserva->getHora()))
+	        );
+	        $bd = null;
+    	}
+		public static function mostrarID($unID) {
+        	$bd = Db::conectar();
+        	//Dentro de la base de datos seleccionamos una colección (tabla)
+        	$coleccion = $bd->Reservas;
+        	//Buscamos todas las reservas
+        	$cursor = $coleccion->find(['_id' => new \MongoDB\BSON\ObjectId($unID)]);
+        	$listaReservas = [];
+        	foreach ($cursor as $documento) {
+            	$miReserva = new Reserva($documento["_id"], $documento["Apellidos"], $documento["Nombre"], $documento["Fecha"], $documento["Hora"], $documento["Comensales"]);
+            	$listaReservas[] = $miReserva;
+        	}
+
+        	$bd = null;
+        	return $listaReservas[0];
+    }
+
+
 }
