@@ -3,7 +3,7 @@
 spl_autoload_register(function ( $NombreClase) {
     include_once($NombreClase . '.php');
 });
-
+require 'vendor/autoload.php';
 //Se comprueba que se ha pulsado actualizar o eliminar
 if (isset($_GET['accion'])) {
     if ($_GET['accion'] == "eliminar") {
