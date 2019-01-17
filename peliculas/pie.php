@@ -5,7 +5,3 @@
 </footer>
 </body>
 </html>
-<?php
-//cerrar conexion
-mysqli_close($conexion);
-

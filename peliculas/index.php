@@ -3,7 +3,7 @@
         include_once($NombreClase . '.php');
     });
     include './cabecera.php';
-    //Abrir conexión
+        //Abrir conexión
     $listaPeliculas = BDPelicula::mostrar();
 
     ;

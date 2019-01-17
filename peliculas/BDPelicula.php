@@ -26,12 +26,15 @@
             }
             public static function mostrarPorId($unId) {
                 $dbh = Db::conectar();
-
+                $listaPeliculas = [];
                 $coleccion = $dbh->peliculasMongo;
-                $cursor = $coleccion->find(['_id' => $unId]);
-                $PeliculaId = $miPelicula = new Pelicula($pelicula['id'], $pelicula['titulo'], $pelicula['genero'], $pelicula['director'], $pelicula['year'], $pelicula['sinopsis'], $pelicula['cartel']);
+                $cursor = $coleccion->find(['_id' => new \MongoDB\BSON\ObjectId($unId)]);
+                foreach ($cursor as $pelicula) {
+                    $miPelicula = new Pelicula($pelicula["_id"], $pelicula["director"], $pelicula["genero"], $pelicula["portada"], $pelicula["sinopsis"], $pelicula["titulo"], $pelicula["year"]);
+                    $listaPeliculas[] = $miPelicula;
+                }
                 $dbh = null;
-                return $miPeliculaId;
+                return $listaPeliculas[0];
             }
 
             public static function eliminar($idPelicula) {
@@ -49,8 +52,8 @@
 
                 $documento = array(
                     "director" => $unaPelicula->getDirector(),
-                    "genero" => $unaPelicula->getApellidos(),
-                    "portada" => $unaPelicula->getPortada(),
+                    "genero" => $unaPelicula->getGenero(),
+                    "portada" => $unaPelicula->getCartel(),
                     "sinopsis" => $unaPelicula->getSinopsis(),
                     "titulo" => $unaPelicula->getTitulo(),
                     "year" =>$unaPelicula->getYear()
@@ -63,15 +66,13 @@
             
             //Se modifica una pelicuña pasandole un objeto pelicula con los valores a modificar
             public static function modificar($unaPelicula) {
-                eliminar(getId($unaPelicula));
-
                 $dbh = Db::conectar();
                 $coleccion = $dbh->peliculasMongo;
-
+                BDPelicula::eliminar($unaPelicula->getId());
                 $documento = array(
                     "director" => $unaPelicula->getDirector(),
-                    "genero" => $unaPelicula->getApellidos(),
-                    "portada" => $unaPelicula->getPortada(),
+                    "genero" => $unaPelicula->getGenero(),
+                    "portada" => $unaPelicula->getCartel(),
                     "sinopsis" => $unaPelicula->getSinopsis(),
                     "titulo" => $unaPelicula->getTitulo(),
                     "year" =>$unaPelicula->getYear()

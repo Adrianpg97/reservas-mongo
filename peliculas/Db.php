@@ -9,6 +9,7 @@ class Db {
         $conexion = new MongoDB\Client;
         self::$conexion = $conexion->peliculas;
 
-        return self::$conexion;}
+        return self::$conexion;
+    	}
     }
 ?>
